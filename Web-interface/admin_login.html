@@ -1,0 +1,147 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Aqualjal</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+  fieldset{
+  padding: 20px;
+  background: rgba(244,210,150,1);
+  color: black;}
+ input[type=text],[type = password]{
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+input[type=text]:focus,[type=password]:focus{
+    background-color: #ddd;
+    outline: none;
+}
+ .hello{
+  width: 100%;
+  padding: 12px 20px;
+  margin:8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.bg-img
+{
+background-image:url(images/background.jpg);
+min-height: 380px;
+ background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+}
+
+img.avatar {
+  width: 20%;
+  border-radius: 50%;
+}
+</style>
+
+
+<script type="text/javascript">
+		var count=0;
+        $(document).ready(function () {
+			
+		 $('#myform').submit(function(event){
+			event.preventDefault();
+			// var new_form = $('#myform');
+			// count=count+1;
+			// alert(count);
+      // alert("hii");
+			var form = $('#myform')[0];
+			// alert($('#myform'));
+			var send_data = new FormData(form);
+			$.ajax('http://127.0.0.1:8080/api/check', {
+				type: 'POST',  // http method
+				// data: {name:$('#name').val(),age:$('#age').val()},  // data to submit
+				data:send_data,
+				processData: false,
+            	contentType: false,
+            	cache:false,
+            	enctype: 'multipart/form-data',
+				cors:true,
+				headers: {
+            'Access-Control-Allow-Origin': '*',
+          },
+
+      
+				success: function (data, status, xhr) {
+           if(data==="1")
+           {
+             location.replace("dashboard.html")
+           }
+           else{
+             alert("login unsuccessful");
+          }
+				},
+				error: function (jqXhr, textStatus, errorMessage) {
+						alert("error occured");
+					}
+			});
+		});
+    });
+    </script>
+
+
+
+</head>
+<body>
+<div class="bg-img" >
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Aquajal</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="index.html">Home</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Page 1-1</a></li>
+          <li><a href="#">Page 1-2</a></li>
+          <li><a href="#">Page 1-3</a></li>
+        </ul>
+      </li>
+      <li><a href="admin_login.html">Login</a></li>
+      <li><a href="#">Page 3</a></li>
+    </ul>
+  </div>
+</nav>
+
+<center>
+  <fieldset style="height: 450px;width: 30%;margin-top: 75px"  class="bg-img">
+    <p style="font-size: 30px">ADMIN LOGIN </p>
+    <div class="imgcontainer">
+      <img src="images/avatar.png" alt="Avatar" class="avatar">
+    </div>
+    <form id="myform" enctype="multipart/form-data" method="POST">
+      <label for="username"><b>Username</b></label>
+      <input type="text" name="username" placeholder="Username" class="hello"><br>
+      <label for="pwd"><b>Password</b></label>
+      <input type="password" name="pwd" placeholder="password" class="hello"><br>
+      <input type="submit" name="submit" class="btn btn-primary"><br><br>
+      <center><a href="forgot_password.html" style="text-decoration: none;color: green">forgot password?</a></center>
+    </form>
+</div>
+    
+  </fieldset>
+    </center>
+<div>
+</body>
+</html>

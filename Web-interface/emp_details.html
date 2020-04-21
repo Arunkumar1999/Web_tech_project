@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Aqualjal</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+  .form-inline {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+/* Add some margins for each label */
+.form-inline label {
+  margin: 5px 10px 5px 0;
+}
+
+/* Style the input fields */
+.form-inline input {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+/* Style the submit button */
+.form-inline button {
+  padding: 10px 20px;
+  background-color: dodgerblue;
+  border: 1px solid #ddd;
+  color: white;
+}
+
+.form-inline button:hover {
+  background-color: royalblue;
+}
+
+/* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
+@media (max-width: 800px) {
+  .form-inline input {
+    margin: 10px 0;
+  }
+
+  .form-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+  </style>
+  <script type="text/javascript">
+		var count=0;
+        $(document).ready(function () {
+			
+		 $('#myform').submit(function(event){
+			event.preventDefault();
+			// var new_form = $('#myform');
+			// count=count+1;
+			// alert(count);
+      // alert("hii");
+			var form = $('#myform')[0];
+			// alert($('#myform'));
+			var send_data = new FormData(form);
+      // send_data.append("status","added");
+			$.ajax('http://127.0.0.1:8080/api/recommend', {
+				type: 'POST',  // http method
+				// data: {name:$('#name').val(),age:$('#age').val()},  // data to submit
+				data:send_data,
+				processData: false,
+            	contentType: false,
+            	cache:false,
+            	enctype: 'multipart/form-data',
+				cors:true,
+				headers: {
+            'Access-Control-Allow-Origin': '*',
+          },
+
+      
+				success: function (data, status, xhr) {
+          $("#d_table").html(" ");
+          if(data[0]==""){
+            alert("nothing was bought in that month")
+          }
+          else{
+          // $("#d_table").html(" ");
+           var i;
+          // for(i=0;i<(data).length;i++){
+            // alert(data[i][i]);
+            $("#d_table").append("<tr>"+
+            "<td>"+data[0]+"</td>"+
+            "<td>"+data[1]+"</td>"+
+            "<td>"+data[2]+"</td>"+
+            "<td>"+data[3]+"</td>"+
+            "<td>"+data[4]+"</td>"+
+            // "<td>"+data[i][5]+"</td>"+
+            // "<td>"+data[i][6]+"</td>"+
+            // "<td>"+data[i][7]+"</td>"+
+            "</tr>")
+          }
+				},
+				error: function (jqXhr, textStatus, errorMessage) {
+						alert("error occured");
+					}
+			});
+		});
+    });
+    </script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header ">
+      <a class="navbar-brand " href="#">Aquajal</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="dashboard.html">Dashboard</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Raw materials <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="1l_raw.html">1 Litre</a></li>
+          <li><a href="2l_raw.html">2 Litre</a></li>
+          <li><a href="halfl_raw.html">1/2 Litre</a></li>
+          <li><a href="twl_raw.html">20 Litre</a></li>
+        </ul>
+      </li>
+      <li><a href="details.html">Details</a></li>
+      <li><a href="emp_details.html">Recommendation</a></li>
+      <li><a href="draw_graph.html">Graph</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Expenditure<span class="caret"></span></a>
+       <ul class="dropdown-menu">
+          <li><a href="#">Machinary Maintance</a></li>
+          <li><a href="#">Bank accounts</a></li>
+          <li><a href="#">Vehical</a></li>
+          <li><a href="#">Transport</a></li>
+          <li><a href="#">Others</a></li>
+        </ul></li>
+      <li><a href="#">Bill</a></li>
+    </ul>
+        <ul class="nav navbar-nav navbar-right">
+        <li><a href="admin_login.html"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+      </ul>
+  </div>
+</nav>
+<!-- <div class="container" style="margin-left: 0px;width: 25%">
+  <ul class="nav nav-pills nav-stacked">
+    <li class="active"><a href="#">Home</a></li>
+    <li><a href="#">Menu 1</a></li>
+    <li><a href="#">Menu 2</a></li>
+    <li><a href="#">Menu 3</a></li>
+  </ul>
+ 
+</div>
+
+ <div class="container">
+  <h3>Navbar With Dropdown</h3>
+  <p>This example adds a dropdown menu for the "Page 1" button in the navigation bar.</p>
+</div> -->
+<form method="POST" class="form-inline" action="" style="margin:auto;max-width:300px" id="myform" enctype="multipart/form-data">
+  <label>Month:   <input type="number" placeholder="search" name="search"></label>
+  <!-- <label>Product_code:<input type="text" placeholder="search" name="product_code"></label></p> -->
+  <label for="product">Product_code:</label>
+      <select class="form-control" id="product" name="product_code">
+        <option>1L</option>
+        <option>2L</option>
+        <option>1/2L</option>
+      </select><br><br><br>
+  <button type="submit">Recommend</button>
+</form></P>
+<table  class="table table-bordered table-hover" style="width: 80%;margin-left: 10%;" >
+<thead>
+<tr>
+  <th>Preform</th>
+  <th>Label</th>
+  <th>Cap</th>
+  <th>Carton</th>
+  <th>Tape</th>
+</tr>
+</thead>
+<tbody id="d_table">
+</tbody>
+</table>
+</body>
+</html>
+

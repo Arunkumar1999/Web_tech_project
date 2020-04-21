@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>20 Litre</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style >
+    .form-control
+{
+width: 30%;
+
+}
+.gr{
+  margin-left: 35%;
+}
+  </style>
+
+<script type="text/javascript">
+    function GetDetails(){
+		var count=0;
+        $(document).ready(function () {
+			
+		//  $('#myform').submit(function(event){
+		// 	event.preventDefault();
+		// 	// var new_form = $('#myform');
+		// 	// count=count+1;
+		// 	// alert(count);
+    //   // alert("hii");
+		// 	var form = $('#myform')[0];
+		// 	// alert($('#myform'));
+		// 	var send_data = new FormData(form);
+			$.ajax('http://127.0.0.1:8080/api/20L_static_details', {
+				type: 'GET',  // http method
+				// data: {name:$('#name').val(),age:$('#age').val()},  // data to submit
+				// data:send_data,
+				processData: false,
+            	contentType: false,
+            	cache:false,
+            	enctype: 'multipart/form-data',
+				cors:true,
+				headers: {
+            'Access-Control-Allow-Origin': '*',
+          },
+
+      
+				success: function (data, status, xhr) {
+          // alert(data[0]);
+          $("#1").val(data[0]);
+
+           $("#2").val(data[1]);
+           $("#3").val(data[2]);
+           $("#4").val(data[3]);
+           $("#5").val(data[4]);
+           $("#6").val(data[5]);
+
+				},
+				error: function (jqXhr, textStatus, errorMessage) {
+						$('#para').append('Error: ' + errorMessage);
+					}
+			});
+		//});
+    });
+    }
+    </script>
+</head>
+<body onload="GetDetails()">
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Aquajal</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="dashboard.html">Dashboard</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Raw materials <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="1l_raw.html">1 Litre</a></li>
+          <li><a href="2l_raw.html">2 Litre</a></li>
+          <li><a href="halfl_raw.html">1/2 Litre</a></li>
+          <li><a href="twyl_raw.html">20 Litre</a></li>
+        </ul>
+      </li>
+      <li><a href="details.html">Details</a></li>
+      <li><a href="emp_details.html">Recommendation</a></li>
+      <li><a href="draw_graph.html">Graph</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Expenditure<span class="caret"></span></a>
+       <ul class="dropdown-menu">
+          <li><a href="#">Machinary Maintance</a></li>
+          <li><a href="#">Bank accounts</a></li>
+          <li><a href="#">Vehical</a></li>
+          <li><a href="#">Transport</a></li>
+          <li><a href="#">Others</a></li>
+        </ul></li>
+      <li><a href="#">Bill</a></li>
+      <!-- <li><a href="admin_login.html">Log Out</a></li> -->
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="admin_login.html"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+      </ul>
+  </div>
+</nav>
+<!-- <a href="1l_raw.html" class="btn btn-info" role="button">BACK</a> -->
+<div class="container">
+  <h1><b>20 Litre Details<b></h1>
+  <h2><a href="twyl_raw_details.html" class="btn btn-info">Total_Details<a></h2>  
+  <div class="gr">
+  <form method="POST" action="twyl_addraw.html">
+    <div class="form-group">
+      <label for="product_code">Product_code</label>
+      <input type="text" class="form-control" value="20L & Cold " name="product_code" readonly>
+    </div>
+    <div class="form-group">
+      <label for="cans">Cans:</label>
+      <input type="number" class="form-control" value="<?php echo($casum) ;?>" name="cans" readonly id="1" >
+    </div>
+    <div class="form-group">
+      <label for="twyl_Lebel">Lebel:</label>
+      <input type="number" class="form-control" value="<?php echo($lsum); ?>" name="twyl_Lebel" readonly id="2">
+    </div>
+    <div class="form-group">
+      <label for="twyl_cap">cap:</label>
+      <input type="number" class="form-control" value="<?php echo($csum); ?>" readonly name="twyl_cap" id="3">
+    </div>
+    <div class="form-group">
+      <label for="dispenser">Dispenser:</label>
+      <input type="number" class="form-control"  value="<?php echo($dsum); ?>" readonly name="dispenser" id="4">
+    </div>
+    <div class="form-group">
+      <label for="slews">Slews:</label>
+      <input type="number" class="form-control"  value="<?php echo($ssum); ?>" readonly name="slews" id="5">
+    </div>
+    <div class="form-group">
+      <label for="coldcans">Cold Cans:</label>
+      <input type="number" class="form-control" value="<?php echo($cosum) ;?>" name="coldcans" readonly id="6">
+    </div>
+     
+    <button type="submit" class="btn btn-primary btn-md" style="margin-left: 7%;width: 100px;">ADD</button>
+  </form><br>
+  <form method="POST" action="twyl_alterraw.html">
+    <button type="submit" class="btn btn-danger"  style="margin-left: 7%;width: 100px;">Alter</button>
+    </form>
+
+  </div>
+   
+</div><br><br>
+</body>
+</html>
+
+

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>20 Litre</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style >
+.form-control
+{
+width: 30%;
+
+}
+.gr{
+  margin-left: 35%;
+}
+
+</style>
+
+</style>
+
+<script type="text/javascript">
+		var count=0;
+        $(document).ready(function () {
+			
+		 $('#myform').submit(function(event){
+			event.preventDefault();
+			// var new_form = $('#myform');
+			// count=count+1;
+			// alert(count);
+      // alert("hii");
+			var form = $('#myform')[0];
+			// alert($('#myform'));
+			var send_data = new FormData(form);
+      send_data.append("status","altered");
+			$.ajax('http://127.0.0.1:8080/api/add_alter_data_20L', {
+				type: 'POST',  // http method
+				// data: {name:$('#name').val(),age:$('#age').val()},  // data to submit
+				data:send_data,
+				processData: false,
+            	contentType: false,
+            	cache:false,
+            	enctype: 'multipart/form-data',
+				cors:true,
+				headers: {
+            'Access-Control-Allow-Origin': '*',
+          },
+
+      
+				success: function (data, status, xhr) {
+           if(data==="1")
+           {
+             alert("successfully altered");
+            //  location.replace("twyl_raw.html")
+           }
+           else{
+             alert("login unsuccessful");
+          }
+				},
+				error: function (jqXhr, textStatus, errorMessage) {
+						alert("error occured");
+					}
+			});
+		});
+    });
+    </script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Aquajal</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Dashboard</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Raw materials <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+         <li><a href="1l_raw.html">1 Litre</a></li>
+          <li><a href="2l_raw.html">2 Litre</a></li>
+          <li><a href="halfl_raw.html">1/2 Litre</a></li>
+          <li><a href="twyl_raw.html">20 Litre</a></li>
+        </ul>
+      </li>
+      <li><a href="details.html">Details</a></li>
+      <li><a href="emp_details.html">Recommendation</a></li>
+      <li><a href="draw_graph.html">Graph</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Expenditure<span class="caret"></span></a>
+       <ul class="dropdown-menu">
+          <li><a href="#">Machinary Maintance</a></li>
+          <li><a href="#">Bank accounts</a></li>
+          <li><a href="#">Vehical</a></li>
+          <li><a href="#">Transport</a></li>
+          <li><a href="#">Others</a></li>
+        </ul></li>
+      <li><a href="#">Bill</a></li>
+      <!-- <li><a href="admin_login.html">Log Out</a></li> -->
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="admin_login.html"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+      </ul>
+  </div>
+</nav>
+<a href="twyl_raw.html" class="btn btn-info" role="button">BACK</a>
+<div class="container">
+  <h1><b>20 Litre<b></h1>
+  <h2>Alter Raw Materials</h2> 
+ <div class="gr">
+  <form id="myform" enctype="multipart/form-data" method="POST" >
+        <div class="form-group">
+      <label for="product_code">Product_code</label>
+      <input type="text" class="form-control" value="20L" name="product_code" readonly>
+    </div>
+    <div class="form-group">
+      <label for="cans">Cans:</label>
+      <input type="number" class="form-control" placeholder="Cans" name="cans">
+    </div>
+    <div class="form-group">
+      <label for="dispenser">Dispenser:</label>
+      <input type="number" class="form-control" placeholder="Dispenser" name="dispenser">
+    </div>
+    <div class="form-group">
+      <label for="twyl_cap">Caps:</label>
+      <input type="number" class="form-control"  placeholder="Caps" name="twyL_cap">
+    </div>
+    <div class="form-group">
+      <label for="twyl_Lebel">Lebel:</label>
+      <input type="number" class="form-control"  placeholder="Lebel" name="twyL_Lebel">
+    </div>
+    <div class="form-group">
+      <label for="twyl_Lebel">Slews:</label>
+      <input type="number" class="form-control"  placeholder="Slews" name="slews">
+    </div>
+    <div class="form-group">
+      <label for="twyl_Lebel">Cold Cans:</label>
+      <input type="number" class="form-control"  placeholder="Cold Cans" name="coldcans">
+    </div>
+     <div class="form-group">
+      <label for="date">date:</label>
+      <input type="date" class="form-control" required="" placeholder="date" name="r_date">
+    </div>
+    <input type="submit" value="submit" class="btn btn-primary btn-md" style="margin-left: 10%" name="submit">
+    
+  </form>
+   </div>
+</div>
+
+</body>
+</html>
+
+

@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>20 Litre</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style >
+    .form-control
+{
+width: 30%;
+
+}
+.gr{
+  margin-left: 35%;
+}
+  </style>
+
+<script type="text/javascript">
+    function GetDetails(){
+		var count=0;
+        $(document).ready(function () {
+			
+		//  $('#myform').submit(function(event){
+		// 	event.preventDefault();
+		// 	// var new_form = $('#myform');
+		// 	// count=count+1;
+		// 	// alert(count);
+    //   // alert("hii");
+		// 	var form = $('#myform')[0];
+		// 	// alert($('#myform'));
+		   var send_data = new FormData();
+       send_data.append("search","1");
+      // alert("in half");
+			$.ajax('http://127.0.0.1:8080/api/total_details', {
+				type: 'POST',  // http method
+				// data: {"product_code":"2L"},
+				 data:send_data,
+				processData: false,
+            	contentType: false,
+            	cache:false,
+            	enctype: 'multipart/form-data',
+				cors:true,
+				headers: {
+            'Access-Control-Allow-Origin': '*',
+          },
+
+      
+				success: function (data, status, xhr) {
+          // alert(data[0][0]);
+          // alert("success");
+          var i;
+          for(i=0;i<(data).length;i++){
+            // alert(data[i][i]);
+            $("#d_table").append("<tr>"+
+            "<td>"+data[i][0]+"</td>"+
+            "<td>"+data[i][1]+"</td>"+
+            "<td>"+data[i][2]+"</td>"+
+            "<td>"+data[i][3]+"</td>"+
+            "<td>"+data[i][4]+"</td>"+
+            "<td>"+data[i][5]+"</td>"+
+            "<td>"+data[i][6]+"</td>"+
+            "<td>"+data[i][7]+"</td>"+
+            "<td>"+data[i][8]+"</td>"+
+            "</tr>")
+          
+          }
+
+				},
+				error: function (jqXhr, textStatus, errorMessage) {
+						$('#para').append('Error: ' + errorMessage);
+					}
+			});
+		//});
+    });
+    }
+    </script>
+</head>
+<body onload="GetDetails()">
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Aquajal</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="dashboard.html">Dashboard</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Raw materials <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="1l_raw.html">1 Litre</a></li>
+          <li><a href="2l_raw.html">2 Litre</a></li>
+          <li><a href="halfl_raw.html">1/2 Litre</a></li>
+          <li><a href="twyl_raw.html">20 Litre</a></li>
+        </ul>
+      </li>
+      <li><a href="emp_details.html">Recommendation</a></li>
+      <li><a href="draw_graph.html">Graph</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Expenditure<span class="caret"></span></a>
+       <ul class="dropdown-menu">
+          <li><a href="#">Machinary Maintance</a></li>
+          <li><a href="#">Bank accounts</a></li>
+          <li><a href="#">Vehical</a></li>
+          <li><a href="#">Transport</a></li>
+          <li><a href="#">Others</a></li>
+        </ul></li>
+      <li><a href="#">Bill</a></li>
+      <!-- <li><a href="admin_login.html">Log Out</a></li> -->
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="admin_login.html"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+      </ul>
+  </div>
+</nav>
+<a href="twyl_raw.html" class="btn btn-info" role="button">BACK</a>
+  <div class="container">
+  <h1><b>20 Litre<b></h1>
+  <h2><a href="twyl_raw_details.html" style="text-decoration: none;">Details<a></h2> 
+
+   
+</div>
+<table style="width: 80%;margin-left: 10%;" class="table table-bordered table-hover">
+<thead >
+<tr >
+  <th>Product_code</th>
+  <th>Cans</th>
+  <th>Dispenser</th>
+  <th>Caps</th>
+  <th>Lebel</th>
+  <th>Slews</th>
+  <th>Cold Cans</th>
+  <th>Date</th>
+  <th>Status</th>
+  
+</tr>
+</thead>
+ 
+<tbody style="color: black" id="d_table">
+  
+</tbody>
+</table>
+
+
+
+</body>
+</html>
